@@ -5,7 +5,7 @@ import { GlobalStyles, lightTheme, darkTheme } from './common/styles';
 
 export const App = () => {
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Routes />
       <GlobalStyles />
     </ThemeProvider>

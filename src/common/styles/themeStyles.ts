@@ -33,9 +33,9 @@ export const darkTheme = {
   title: 'darkTheme',
 
   colors: {
-    background: '#0F0F0F',
-    text: '#FCFCFC',
-    primary: '',
+    background: '#333333',
+    text: '#EBEBEB',
+    primary: '#CC5801',
     secondary: '',
   },
 
