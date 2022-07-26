@@ -1,10 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { VscChecklist } from 'react-icons/vsc';
-import {
-  IoIosCheckboxOutline,
-  IoMdTrash,
-  IoIosAddCircleOutline,
-} from 'react-icons/io';
+import { IoIosAddCircleOutline } from 'react-icons/io';
 
 import { useTasks } from '../../hooks';
 
@@ -14,9 +10,9 @@ import {
   Header,
   Display,
   Empty,
-  Task,
   InputField,
 } from './home.styles';
+import { Task } from './components/Task';
 
 export const Home = () => {
   const { tasklist, createNewTask } = useTasks();
@@ -50,15 +46,7 @@ export const Home = () => {
           {tasklist.length !== 0 &&
             tasklist !== null &&
             tasklist.map((task) => {
-              return (
-                <Task key={task.id}>
-                  <span>{task.title}</span>
-                  <div>
-                    <IoIosCheckboxOutline />
-                    <IoMdTrash />
-                  </div>
-                </Task>
-              );
+              return <Task key={task.id} taskTitle={task.title} />;
             })}
         </Display>
 

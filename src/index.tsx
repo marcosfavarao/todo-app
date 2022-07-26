@@ -11,16 +11,16 @@ createServer({
   seeds(server) {
     server.db.loadData({
       tasklists: [
-        {
-          id: 1,
-          title: 'learn javascript',
-          createdAt: new Date(),
-        },
-        {
-          id: 2,
-          title: 'learn typescript',
-          createdAt: new Date(),
-        },
+        // {
+        //   id: 1,
+        //   title: 'learn javascript',
+        //   createdAt: new Date(),
+        // },
+        // {
+        //   id: 2,
+        //   title: 'learn typescript',
+        //   createdAt: new Date(),
+        // },
       ],
     });
   },
