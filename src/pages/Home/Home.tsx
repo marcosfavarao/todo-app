@@ -1,8 +1,10 @@
 import { FormEvent, useState } from 'react';
+
 import { VscChecklist } from 'react-icons/vsc';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 import { useTasks } from '../../hooks';
+import { Task } from './components/Task';
 
 import {
   Container,
@@ -12,7 +14,6 @@ import {
   Empty,
   InputField,
 } from './home.styles';
-import { Task } from './components/Task';
 
 export const Home = () => {
   const { tasklist, createNewTask } = useTasks();

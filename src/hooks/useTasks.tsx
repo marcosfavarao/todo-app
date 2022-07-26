@@ -7,6 +7,7 @@ import {
   useState,
   useCallback,
 } from 'react';
+import { v4 as uuid } from 'uuid';
 import { api } from '../services';
 
 interface TasklistProviderProps {
@@ -14,17 +15,17 @@ interface TasklistProviderProps {
 }
 
 interface TasklistState {
-  id: number;
+  id: string;
   title: string;
-  createdAt: string;
+  createdAt: Date;
 }
-
-type TaskInput = Omit<TasklistState, 'id' | 'createdAt'>;
 
 interface TasklistContext {
   tasklist: Array<TasklistState>;
-  createNewTask: (task: TaskInput) => void;
+  createNewTask: (task: TasklistCreation) => void;
 }
+
+type TasklistCreation = Omit<TasklistState, 'id' | 'createdAt'>;
 
 const DEFAULT_VALUE = {
   tasklist: [],
@@ -38,10 +39,13 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
   const [tasklist, setTasklist] = useState<TasklistState[]>([]);
 
   const createNewTask = useCallback(
-    async (task: TaskInput) => {
-      const response = await api.post('/tasklist', task);
+    async (task: TasklistCreation) => {
+      const response = await api.post('/tasklist', {
+        ...task,
+        id: uuid(),
+        createdAt: new Date(),
+      });
       const todo = response.data.tasklist;
-
       setTasklist([...tasklist, todo]);
     },
     [tasklist],
@@ -52,6 +56,10 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
       .get('/tasklist')
       .then((response) => setTasklist(response.data?.tasklists));
   }, []);
+
+  useEffect(() => {
+    console.log(tasklist);
+  }, [tasklist]);
 
   const provider = useMemo(
     () => ({
