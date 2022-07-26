@@ -1,6 +1,12 @@
 import { FormEvent, useState } from 'react';
 import { VscChecklist } from 'react-icons/vsc';
-import { IoIosAddCircleOutline } from 'react-icons/io';
+import {
+  IoIosCheckboxOutline,
+  IoMdTrash,
+  IoIosAddCircleOutline,
+} from 'react-icons/io';
+
+import { useTasks } from '../../hooks';
 
 import {
   Container,
@@ -13,14 +19,16 @@ import {
 } from './home.styles';
 
 export const Home = () => {
+  const { tasklist, createNewTask } = useTasks();
   const [isFocused, setIsFocused] = useState(false);
-  const [todo, setTodo] = useState('');
-  const [todos, setTodos] = useState(0);
+  const [title, setTitle] = useState('');
 
   const assignTodo = (event: FormEvent) => {
     // Event type definition -> event: ChangeEvent<HTMLInputElement>
     event.preventDefault();
-    setTodo('');
+    if (!title) return;
+    createNewTask({ title });
+    setTitle('');
   };
 
   return (
@@ -30,16 +38,28 @@ export const Home = () => {
           <h1>My Todos</h1>
         </Header>
 
-        <Display hasTasks={todos > 0}>
-          {!todos ? (
+        <Display hasTasks={tasklist.length !== 0 && tasklist !== null}>
+          {tasklist.length === 0 && (
             <Empty>
               <VscChecklist />
               <h2>Add your first to do</h2>
               <p>What do you want to get done today?</p>
             </Empty>
-          ) : (
-            <Task>Hi</Task>
           )}
+
+          {tasklist.length !== 0 &&
+            tasklist !== null &&
+            tasklist.map((task) => {
+              return (
+                <Task key={task.id}>
+                  <span>{task.title}</span>
+                  <div>
+                    <IoIosCheckboxOutline />
+                    <IoMdTrash />
+                  </div>
+                </Task>
+              );
+            })}
         </Display>
 
         <InputField isFocused={isFocused} onSubmit={assignTodo}>
@@ -48,8 +68,8 @@ export const Home = () => {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="type a task..."
-            value={todo}
-            onChange={(event) => setTodo(event.target.value)}
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
           />
 
           <button type="submit">

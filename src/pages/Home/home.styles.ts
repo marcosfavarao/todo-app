@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
+import { lighten, transparentize } from 'polished';
 
 interface InputFieldProps {
   isFocused: boolean;
@@ -33,7 +33,7 @@ export const Header = styled.header`
 `;
 
 export const Display = styled.div<DisplayProps>`
-  background: ${({ theme }) => lighten(0.08, theme.colors.background)};
+  background: ${({ theme }) => lighten(0.05, theme.colors.background)};
   width: 100%;
   height: 40rem;
   margin-top: 2rem;
@@ -79,35 +79,62 @@ export const Empty = styled.div`
 `;
 
 export const Task = styled.div`
-  background: red;
+  background: ${({ theme }) => lighten(0.08, theme.colors.background)};
   width: 100%;
-  height: 3rem;
+  height: 3.5rem;
   margin-bottom: 1rem;
   padding: 1rem;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 0.25rem;
 
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: row;
+
+  transition: all ${({ theme }) => theme.transitions.fast};
+  &:hover {
+    background: ${({ theme }) => transparentize(0.9, theme.colors.primary)};
+    border: 1px solid
+      ${({ theme }) => transparentize(0.8, theme.colors.primary)};
+  }
+
+  span {
+    text-align: left;
+    font-size: 1.25rem;
+    font-weight: ${({ theme }) => theme.fonts.weight.light};
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+    }
+  }
 `;
 
 export const InputField = styled.form<InputFieldProps>`
-  background: ${({ theme }) => lighten(0.08, theme.colors.background)};
+  background: ${({ theme }) => lighten(0.05, theme.colors.background)};
   width: 100%;
   height: 3rem;
   margin-top: 2rem;
 
-  border: 2px solid
+  border: 1px solid
     ${({ theme, isFocused }) =>
-      isFocused ? theme.colors.primary : `transparent`};
+      isFocused ? transparentize(0.6, theme.colors.primary) : `transparent`};
   border-radius: 0.25rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: ${({ theme }) => theme.transitions.fast};
+  transition: all ${({ theme }) => theme.transitions.fast};
 
   button {
     background: none;
@@ -127,7 +154,7 @@ export const InputField = styled.form<InputFieldProps>`
 
       transition: color ${({ theme }) => theme.transitions.fast};
       &:hover {
-        color: ${({ theme }) => theme.colors.primary};
+        color: ${({ theme }) => transparentize(0.2, theme.colors.primary)};
       }
     }
   }
@@ -145,7 +172,7 @@ export const InputField = styled.form<InputFieldProps>`
 
     font-size: 1.1rem;
     font-weight: ${({ theme }) => theme.fonts.weight.normal};
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 
     &:focus {
       outline: none;
