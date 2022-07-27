@@ -17,19 +17,22 @@ interface TasklistProviderProps {
 interface TasklistState {
   id: string;
   title: string;
-  createdAt: Date;
+  createdAt: string;
 }
 
 interface TasklistContext {
   tasklist: Array<TasklistState>;
   createNewTask: (task: TasklistCreation) => void;
+  deleteTask: (task: TasklistDelete) => void;
 }
 
 type TasklistCreation = Omit<TasklistState, 'id' | 'createdAt'>;
+type TasklistDelete = Omit<TasklistState, 'title' | 'createdAt'>;
 
 const DEFAULT_VALUE = {
   tasklist: [],
   createNewTask: () => ({}),
+  deleteTask: () => ({}),
   // createNewTask: () => new Promise<void>({}),
 };
 
@@ -38,18 +41,19 @@ const TasklistContext = createContext<TasklistContext>(DEFAULT_VALUE);
 export const TasklistProvider = ({ children }: TasklistProviderProps) => {
   const [tasklist, setTasklist] = useState<TasklistState[]>([]);
 
-  const createNewTask = useCallback(
-    async (task: TasklistCreation) => {
-      const response = await api.post('/tasklist', {
-        ...task,
-        id: uuid(),
-        createdAt: new Date(),
-      });
-      const todo = response.data.tasklist;
-      setTasklist([...tasklist, todo]);
-    },
-    [tasklist],
-  );
+  const createNewTask = useCallback(async (task: TasklistCreation) => {
+    const response = await api.post('/tasklist', {
+      ...task,
+      createdAt: new Date().toString(),
+    });
+    const todo = response.data.tasklist;
+    setTasklist((currentTasks) => [...currentTasks, todo]);
+  }, []);
+
+  const deleteTask = useCallback(async (task: TasklistDelete) => {
+    await api.delete(`/tasklist/${task.id}`);
+    setTasklist((_task) => _task.filter((current) => current.id !== task.id));
+  }, []);
 
   useEffect(() => {
     api
@@ -57,16 +61,13 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
       .then((response) => setTasklist(response.data?.tasklists));
   }, []);
 
-  useEffect(() => {
-    console.log(tasklist);
-  }, [tasklist]);
-
   const provider = useMemo(
     () => ({
       tasklist,
       createNewTask,
+      deleteTask,
     }),
-    [tasklist, createNewTask],
+    [tasklist, createNewTask, deleteTask],
   );
 
   return (

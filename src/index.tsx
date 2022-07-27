@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createServer, Model } from 'miragejs';
+import { createServer, Model, Response } from 'miragejs';
 import { App } from './App';
 
 createServer({
@@ -11,16 +11,16 @@ createServer({
   seeds(server) {
     server.db.loadData({
       tasklists: [
-        // {
-        //   id: 1,
-        //   title: 'learn javascript',
-        //   createdAt: new Date(),
-        // },
-        // {
-        //   id: 2,
-        //   title: 'learn typescript',
-        //   createdAt: new Date(),
-        // },
+        {
+          id: 1,
+          title: 'learn javascript',
+          createdAt: new Date(),
+        },
+        {
+          id: 2,
+          title: 'learn typescript',
+          createdAt: new Date(),
+        },
       ],
     });
   },
@@ -36,6 +36,17 @@ createServer({
       const data = JSON.parse(request.requestBody);
 
       return schema.create('tasklist', data);
+    });
+
+    this.delete('/tasklist/:id', (schema, request) => {
+      const { id } = request.params;
+
+      if (id !== null && id) {
+        schema.find('tasklist', id)?.destroy();
+        return new Response(200);
+      }
+
+      return new Response(204);
     });
   },
 });

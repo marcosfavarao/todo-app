@@ -19,6 +19,7 @@ export const Container = styled.div<ContainerProps>`
   justify-content: space-between;
   flex-direction: row;
 
+  overflow: hidden;
   transition: all ${({ theme }) => theme.transitions.fast};
   &:hover {
     background: ${({ theme }) => transparentize(0.9, theme.colors.primary)};

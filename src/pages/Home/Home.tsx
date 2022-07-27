@@ -16,14 +16,14 @@ import {
 } from './home.styles';
 
 export const Home = () => {
-  const { tasklist, createNewTask } = useTasks();
+  const { tasklist, createNewTask, deleteTask } = useTasks();
   const [isFocused, setIsFocused] = useState(false);
   const [title, setTitle] = useState('');
 
   const assignTodo = (event: FormEvent) => {
     // Event type definition -> event: ChangeEvent<HTMLInputElement>
     event.preventDefault();
-    if (!title) return;
+    if (!title.trim()) return;
     createNewTask({ title });
     setTitle('');
   };
@@ -47,7 +47,13 @@ export const Home = () => {
           {tasklist.length !== 0 &&
             tasklist !== null &&
             tasklist.map((task) => {
-              return <Task key={task.id} taskTitle={task.title} />;
+              return (
+                <Task
+                  key={task.id}
+                  taskTitle={task.title}
+                  handleDelete={() => deleteTask({ id: task.id })}
+                />
+              );
             })}
         </Display>
 
@@ -59,6 +65,7 @@ export const Home = () => {
             placeholder="type a task..."
             value={title}
             onChange={(event) => setTitle(event.target.value)}
+            maxLength={50}
           />
 
           <button type="submit">

@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { FiEdit } from 'react-icons/fi';
-import { IoIosCheckboxOutline, IoMdTrash } from 'react-icons/io';
+import { IoIosCheckboxOutline, IoMdCreate, IoMdTrash } from 'react-icons/io';
 
 import { Container } from './task.styles';
 
 interface TaskProps {
   taskTitle: string;
-  createdAt?: string;
+  handleDelete?: () => void;
 }
 
-export const Task = ({ taskTitle }: TaskProps) => {
+export const Task = ({ taskTitle, handleDelete }: TaskProps) => {
   const [isTaskDone, setIsTaskDone] = useState<boolean>(false);
 
   return (
@@ -19,8 +18,8 @@ export const Task = ({ taskTitle }: TaskProps) => {
         <IoIosCheckboxOutline
           onClick={() => setIsTaskDone((completed) => !completed)}
         />
-        <FiEdit />
-        <IoMdTrash />
+        <IoMdCreate />
+        <IoMdTrash onClick={handleDelete} />
       </div>
     </Container>
   );
