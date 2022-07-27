@@ -7,7 +7,7 @@ import {
   useState,
   useCallback,
 } from 'react';
-import { v4 as uuid } from 'uuid';
+
 import { api } from '../services';
 
 interface TasklistProviderProps {
@@ -22,8 +22,8 @@ interface TasklistState {
 
 interface TasklistContext {
   tasklist: Array<TasklistState>;
-  createNewTask: (task: TasklistCreation) => void;
-  deleteTask: (task: TasklistDelete) => void;
+  createNewTask: (task: TasklistCreation) => Promise<void>;
+  deleteTask: (task: TasklistDelete) => Promise<void>;
 }
 
 type TasklistCreation = Omit<TasklistState, 'id' | 'createdAt'>;
@@ -31,9 +31,14 @@ type TasklistDelete = Omit<TasklistState, 'title' | 'createdAt'>;
 
 const DEFAULT_VALUE = {
   tasklist: [],
-  createNewTask: () => ({}),
-  deleteTask: () => ({}),
-  // createNewTask: () => new Promise<void>({}),
+  createNewTask: () =>
+    new Promise<void>(() => {
+      Promise.resolve();
+    }),
+  deleteTask: () =>
+    new Promise<void>(() => {
+      Promise.resolve();
+    }),
 };
 
 const TasklistContext = createContext<TasklistContext>(DEFAULT_VALUE);

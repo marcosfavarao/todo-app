@@ -20,12 +20,15 @@ export const Home = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [title, setTitle] = useState('');
 
-  const assignTodo = (event: FormEvent) => {
-    // Event type definition -> event: ChangeEvent<HTMLInputElement>
+  const assignTask = async (event: FormEvent) => {
     event.preventDefault();
     if (!title.trim()) return;
-    createNewTask({ title });
+    await createNewTask({ title });
     setTitle('');
+  };
+
+  const removeTask = async (id: string) => {
+    deleteTask({ id });
   };
 
   return (
@@ -51,21 +54,21 @@ export const Home = () => {
                 <Task
                   key={task.id}
                   taskTitle={task.title}
-                  handleDelete={() => deleteTask({ id: task.id })}
+                  handleDelete={() => removeTask(task.id)}
                 />
               );
             })}
         </Display>
 
-        <InputField isFocused={isFocused} onSubmit={assignTodo}>
+        <InputField isFocused={isFocused} onSubmit={assignTask}>
           <input
             type="text"
+            placeholder="type a task..."
+            maxLength={50}
+            value={title}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="type a task..."
-            value={title}
             onChange={(event) => setTitle(event.target.value)}
-            maxLength={50}
           />
 
           <button type="submit">
