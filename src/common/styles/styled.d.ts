@@ -9,6 +9,9 @@ declare module 'styled-components' {
       text: string;
       primary: string;
       secondary: string;
+      green: string;
+      red: string;
+      orange: string;
     };
 
     fonts: {

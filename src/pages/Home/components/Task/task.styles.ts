@@ -18,13 +18,13 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  flex-wrap: wrap;
 
   overflow: hidden;
   transition: all ${({ theme }) => theme.transitions.fast};
   &:hover {
-    background: ${({ theme }) => transparentize(0.9, theme.colors.primary)};
-    border: 1px solid
-      ${({ theme }) => transparentize(0.8, theme.colors.primary)};
+    background: ${({ theme }) => transparentize(0.9, theme.colors.green)};
+    border: 1px solid ${({ theme }) => transparentize(0.8, theme.colors.green)};
   }
 
   span {
@@ -51,11 +51,25 @@ export const Container = styled.div<ContainerProps>`
       transition: all ${({ theme }) => theme.transitions.fast};
 
       &:first-child {
-        color: ${({ isTaskDone, theme }) => isTaskDone && theme.colors.primary};
+        color: ${({ isTaskDone, theme }) => isTaskDone && theme.colors.green};
+
+        &:hover {
+          color: ${({ theme }) => lighten(0.08, theme.colors.green)};
+        }
+      }
+
+      &:nth-child(2) {
+        &:hover {
+          color: ${({ theme }) => lighten(0.08, theme.colors.orange)};
+        }
       }
 
       &:last-child {
-        color: red;
+        color: ${({ theme }) => theme.colors.red};
+
+        &:hover {
+          color: ${({ theme }) => lighten(0.08, theme.colors.red)};
+        }
       }
     }
   }

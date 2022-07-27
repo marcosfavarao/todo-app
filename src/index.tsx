@@ -13,12 +13,12 @@ createServer({
       tasklists: [
         {
           id: 1,
-          title: 'learn javascript',
+          title: 'Learn Javascript',
           createdAt: new Date(),
         },
         {
           id: 2,
-          title: 'learn typescript',
+          title: 'Learn Typescript',
           createdAt: new Date(),
         },
       ],

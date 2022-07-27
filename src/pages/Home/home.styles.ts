@@ -19,6 +19,7 @@ export const Content = styled.section`
   max-width: 1200px;
   margin: 0 auto;
   margin-top: 4rem;
+  padding: 1rem;
 `;
 
 export const Header = styled.header`
@@ -86,7 +87,7 @@ export const InputField = styled.form<InputFieldProps>`
 
   border: 1px solid
     ${({ theme, isFocused }) =>
-      isFocused ? transparentize(0.6, theme.colors.primary) : `transparent`};
+      isFocused ? transparentize(0.6, theme.colors.green) : `transparent`};
   border-radius: 0.25rem;
 
   display: flex;
@@ -112,7 +113,7 @@ export const InputField = styled.form<InputFieldProps>`
 
       transition: color ${({ theme }) => theme.transitions.fast};
       &:hover {
-        color: ${({ theme }) => transparentize(0.2, theme.colors.primary)};
+        color: ${({ theme }) => transparentize(0.2, theme.colors.green)};
       }
     }
   }
