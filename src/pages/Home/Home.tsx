@@ -27,7 +27,7 @@ export const Home = () => {
   };
 
   const removeTask = async (id: string) => {
-    deleteTask({ id });
+    await deleteTask({ id });
   };
 
   return (
@@ -66,7 +66,10 @@ export const Home = () => {
             maxLength={50}
             value={title}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onBlur={() => {
+              setTitle((text) => text.trim());
+              setIsFocused(false);
+            }}
             onChange={(event) => setTitle(event.target.value)}
           />
 

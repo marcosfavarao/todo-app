@@ -39,7 +39,7 @@ export const darkTheme = {
     secondary: '',
     green: '#169a67',
     red: '#9a1616',
-    orange: '#9a4416',
+    orange: '#e37d10',
   },
 
   fonts: {
