@@ -22,6 +22,7 @@ interface TasklistState {
 
 interface TasklistContext {
   tasklist: Array<TasklistState>;
+  loadingRequisition: boolean;
   createNewTask: (task: TasklistCreation) => Promise<void>;
   updateTask: (task: TasklistUpdate) => Promise<void>;
   deleteTask: (task: TasklistDelete) => Promise<void>;
@@ -33,6 +34,7 @@ type TasklistDelete = Omit<TasklistState, 'title' | 'createdAt'>;
 
 const DEFAULT_VALUE = {
   tasklist: [],
+  loadingRequisition: false,
   createNewTask: () =>
     new Promise<void>(() => {
       Promise.resolve();
@@ -51,8 +53,10 @@ const TasklistContext = createContext<TasklistContext>(DEFAULT_VALUE);
 
 export const TasklistProvider = ({ children }: TasklistProviderProps) => {
   const [tasklist, setTasklist] = useState<TasklistState[]>([]);
+  const [loadingRequisition, setLoadingRequisition] = useState(false);
 
   const createNewTask = useCallback(async (task: TasklistCreation) => {
+    setLoadingRequisition(true);
     const response = await api.post('/tasklist', {
       ...task,
       createdAt: new Date().toString(),
@@ -62,6 +66,7 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
   }, []);
 
   const updateTask = useCallback(async (task: TasklistUpdate) => {
+    setLoadingRequisition(true);
     await api.patch(`/tasklist/${task.id}`, {
       ...task,
       createdAt: new Date().toString(),
@@ -83,6 +88,7 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
   }, []);
 
   const deleteTask = useCallback(async (task: TasklistDelete) => {
+    setLoadingRequisition(true);
     await api.delete(`/tasklist/${task.id}`);
     setTasklist((_task) => _task.filter((current) => current.id !== task.id));
   }, []);
@@ -93,14 +99,17 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
       .then((response) => setTasklist(response.data?.tasklists));
   }, []);
 
+  useEffect(() => setLoadingRequisition(false), [tasklist]);
+
   const provider = useMemo(
     () => ({
       tasklist,
+      loadingRequisition,
       createNewTask,
       updateTask,
       deleteTask,
     }),
-    [tasklist, createNewTask, updateTask, deleteTask],
+    [tasklist, loadingRequisition, createNewTask, updateTask, deleteTask],
   );
 
   return (

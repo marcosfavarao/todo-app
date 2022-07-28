@@ -10,12 +10,19 @@ import {
   Content,
   Header,
   Display,
+  Loader,
   Empty,
   InputField,
 } from './home.styles';
 
 export const Home = () => {
-  const { tasklist, createNewTask, updateTask, deleteTask } = useTasks();
+  const {
+    tasklist,
+    loadingRequisition,
+    createNewTask,
+    updateTask,
+    deleteTask,
+  } = useTasks();
   const [isFocused, setIsFocused] = useState(false);
   const [title, setTitle] = useState('');
 
@@ -42,7 +49,9 @@ export const Home = () => {
         </Header>
 
         <Display hasTasks={tasklist.length !== 0 && tasklist !== null}>
-          {tasklist.length === 0 && (
+          {loadingRequisition && <Loader />}
+
+          {!loadingRequisition && tasklist.length === 0 && (
             <Empty>
               <VscChecklist />
               <h2>Add your first to do</h2>
@@ -50,7 +59,8 @@ export const Home = () => {
             </Empty>
           )}
 
-          {tasklist.length !== 0 &&
+          {!loadingRequisition &&
+            tasklist.length !== 0 &&
             tasklist !== null &&
             tasklist.map((task) => {
               return (

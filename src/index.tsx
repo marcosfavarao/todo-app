@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createServer, Model, Response } from 'miragejs';
 import { App } from './App';
 
-const LOAD_TIMING = 3000;
+const LOAD_TIMING = 300;
 
 createServer({
   models: {

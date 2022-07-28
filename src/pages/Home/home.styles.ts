@@ -1,5 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { lighten, transparentize } from 'polished';
+
+const rotationAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
 
 interface InputFieldProps {
   isFocused: boolean;
@@ -46,6 +55,21 @@ export const Display = styled.div<DisplayProps>`
   overflow: hidden;
   overflow-y: auto;
   position: relative;
+`;
+
+export const Loader = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 5px solid ${({ theme }) => theme.colors.text};
+  border-radius: 50%;
+  border-bottom-color: transparent;
+
+  z-index: 1;
+  position: absolute;
+  left: calc(50% - 2.5rem);
+  top: calc(50% - 2.5rem);
+  transform: translate(-50%, -50%);
+  animation: ${rotationAnimation} 1.5s linear infinite;
 `;
 
 export const Empty = styled.div`

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { IoIosCheckboxOutline, IoMdCreate, IoMdTrash } from 'react-icons/io';
-import { useTasks } from '../../../../hooks';
 
 import { Container } from './task.styles';
 
