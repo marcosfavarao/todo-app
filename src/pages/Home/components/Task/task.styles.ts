@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { transparentize, lighten, darken } from 'polished';
 
 interface ContainerProps {
-  isTaskDone: boolean;
+  isCompleted: boolean;
   isEditingTask: boolean;
 }
 
@@ -35,13 +35,13 @@ export const Container = styled.div<ContainerProps>`
     position: relative;
 
     span {
-      color: ${({ theme, isTaskDone }) =>
-        isTaskDone && darken(0.4, theme.colors.text)};
+      color: ${({ theme, isCompleted }) =>
+        isCompleted && darken(0.4, theme.colors.text)};
       border: 1px solid transparent;
 
       text-align: left;
-      text-decoration: ${({ isTaskDone }) =>
-        isTaskDone ? `line-through` : `none`};
+      text-decoration: ${({ isCompleted }) =>
+        isCompleted ? `line-through` : `none`};
       font-size: 1.25rem;
       font-weight: ${({ theme }) => theme.fonts.weight.light};
     }
@@ -87,7 +87,7 @@ export const Container = styled.div<ContainerProps>`
       transition: all ${({ theme }) => theme.transitions.fast};
 
       &:first-child {
-        color: ${({ isTaskDone, theme }) => isTaskDone && theme.colors.green};
+        color: ${({ isCompleted, theme }) => isCompleted && theme.colors.green};
 
         &:hover {
           color: ${({ theme }) => lighten(0.08, theme.colors.green)};

@@ -17,29 +17,39 @@ interface TasklistProviderProps {
 interface TasklistState {
   id: string;
   title: string;
+  isCompleted: boolean;
   createdAt: string;
 }
 
 interface TasklistContext {
   tasklist: Array<TasklistState>;
   loadingRequisition: boolean;
-  createNewTask: (task: TasklistCreation) => Promise<void>;
-  updateTask: (task: TasklistUpdate) => Promise<void>;
+  assignTask: (task: TasklistCreation) => Promise<void>;
+  updateTaskTitle: (task: TasklistTitleUpdate) => Promise<void>;
+  updateTaskStatus: (task: TasklistStatusUpdate) => Promise<void>;
   deleteTask: (task: TasklistDelete) => Promise<void>;
 }
 
-type TasklistCreation = Omit<TasklistState, 'id' | 'createdAt'>;
-type TasklistUpdate = Omit<TasklistState, 'createdAt'>;
-type TasklistDelete = Omit<TasklistState, 'title' | 'createdAt'>;
+type TasklistCreation = Omit<TasklistState, 'id' | 'isCompleted' | 'createdAt'>;
+type TasklistTitleUpdate = Omit<TasklistState, 'isCompleted' | 'createdAt'>;
+type TasklistStatusUpdate = Omit<TasklistState, 'title' | 'createdAt'>;
+type TasklistDelete = Omit<
+  TasklistState,
+  'title' | 'isCompleted' | 'createdAt'
+>;
 
 const DEFAULT_VALUE = {
   tasklist: [],
   loadingRequisition: false,
-  createNewTask: () =>
+  assignTask: () =>
     new Promise<void>(() => {
       Promise.resolve();
     }),
-  updateTask: () =>
+  updateTaskTitle: () =>
+    new Promise<void>(() => {
+      Promise.resolve();
+    }),
+  updateTaskStatus: () =>
     new Promise<void>(() => {
       Promise.resolve();
     }),
@@ -55,7 +65,7 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
   const [tasklist, setTasklist] = useState<TasklistState[]>([]);
   const [loadingRequisition, setLoadingRequisition] = useState(false);
 
-  const createNewTask = useCallback(async (task: TasklistCreation) => {
+  const assignTask = useCallback(async (task: TasklistCreation) => {
     setLoadingRequisition(true);
     const response = await api.post('/tasklist', {
       ...task,
@@ -65,9 +75,9 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
     setTasklist((currentTasks) => [...currentTasks, todo]);
   }, []);
 
-  const updateTask = useCallback(async (task: TasklistUpdate) => {
+  const updateTaskTitle = useCallback(async (task: TasklistTitleUpdate) => {
     setLoadingRequisition(true);
-    await api.patch(`/tasklist/${task.id}`, {
+    await api.patch(`/tasklist/title/${task.id}`, {
       ...task,
       createdAt: new Date().toString(),
     });
@@ -87,11 +97,37 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
     });
   }, []);
 
+  const updateTaskStatus = useCallback(async (task: TasklistStatusUpdate) => {
+    // setLoadingRequisition(true);
+    await api.patch(`/tasklist/status/${task.id}`, {
+      ...task,
+      createdAt: new Date().toString(),
+    });
+
+    setTasklist((currentTasks) => {
+      const taskList = currentTasks.map((taskReference) => {
+        if (taskReference.id === task.id) {
+          return {
+            ...taskReference,
+            isCompleted: task.isCompleted,
+            createdAt: new Date().toString(),
+          };
+        }
+        return taskReference;
+      });
+      return taskList;
+    });
+  }, []);
+
   const deleteTask = useCallback(async (task: TasklistDelete) => {
     setLoadingRequisition(true);
     await api.delete(`/tasklist/${task.id}`);
     setTasklist((_task) => _task.filter((current) => current.id !== task.id));
   }, []);
+
+  useEffect(() => setLoadingRequisition(false), [tasklist]);
+
+  // useEffect(() => console.log(tasklist), [tasklist]); // ! Delete
 
   useEffect(() => {
     api
@@ -99,17 +135,23 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
       .then((response) => setTasklist(response.data?.tasklists));
   }, []);
 
-  useEffect(() => setLoadingRequisition(false), [tasklist]);
-
   const provider = useMemo(
     () => ({
       tasklist,
       loadingRequisition,
-      createNewTask,
-      updateTask,
+      assignTask,
+      updateTaskTitle,
+      updateTaskStatus,
       deleteTask,
     }),
-    [tasklist, loadingRequisition, createNewTask, updateTask, deleteTask],
+    [
+      tasklist,
+      loadingRequisition,
+      assignTask,
+      updateTaskTitle,
+      updateTaskStatus,
+      deleteTask,
+    ],
   );
 
   return (

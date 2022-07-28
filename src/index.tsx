@@ -16,16 +16,19 @@ createServer({
         {
           id: 1,
           title: 'Learn Javascript',
+          isCompleted: false,
           createdAt: new Date(),
         },
         {
           id: 2,
           title: 'Learn Typescript',
+          isCompleted: false,
           createdAt: new Date(),
         },
         {
           id: 3,
           title: 'Learn NodeJS',
+          isCompleted: false,
           createdAt: new Date(),
         },
       ],
@@ -54,7 +57,23 @@ createServer({
     );
 
     this.patch(
-      '/tasklist/:id',
+      '/tasklist/title/:id',
+      (schema, request) => {
+        const { id } = request.params;
+        const data = JSON.parse(request.requestBody);
+
+        if (id !== null && id) {
+          schema.find('tasklist', id)?.update(data);
+          return new Response(200);
+        }
+
+        return new Response(204);
+      },
+      { timing: LOAD_TIMING },
+    );
+
+    this.patch(
+      '/tasklist/status/:id',
       (schema, request) => {
         const { id } = request.params;
         const data = JSON.parse(request.requestBody);

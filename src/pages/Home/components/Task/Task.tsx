@@ -5,17 +5,25 @@ import { Container } from './task.styles';
 
 interface TaskProps {
   taskTitle: string;
-  handleUpdate?: (newTitle: string) => void;
-  handleDelete?: () => void;
+  taskStatus: boolean;
+  handleUpdateTaskTitle: (newTitle: string) => void;
+  handleUpdateTaskStatus: (newStatus: boolean) => void;
+  handleDelete: () => void;
 }
 
-export const Task = ({ taskTitle, handleUpdate, handleDelete }: TaskProps) => {
-  const [isTaskDone, setIsTaskDone] = useState(false);
+export const Task = ({
+  taskTitle,
+  taskStatus,
+  handleUpdateTaskTitle,
+  handleUpdateTaskStatus,
+  handleDelete,
+}: TaskProps) => {
   const [isEditingTask, setIsEditingTask] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState(taskTitle);
+  const [isCompleted, setIsCompleted] = useState(taskStatus);
 
   return (
-    <Container isTaskDone={isTaskDone} isEditingTask={isEditingTask}>
+    <Container isCompleted={isCompleted} isEditingTask={isEditingTask}>
       <p>
         {!isEditingTask ? (
           <span>{taskTitle}</span>
@@ -28,16 +36,23 @@ export const Task = ({ taskTitle, handleUpdate, handleDelete }: TaskProps) => {
           />
         )}
       </p>
+
       <div>
         <IoIosCheckboxOutline
-          onClick={() => setIsTaskDone((completed) => !completed)}
+          onClick={() => {
+            setIsCompleted((status) => {
+              const newStatus = !status;
+              handleUpdateTaskStatus?.(newStatus);
+              return newStatus;
+            });
+          }}
         />
         <IoMdCreate
           onClick={() => {
             if (!isEditingTask) {
               setIsEditingTask(true);
             } else {
-              handleUpdate?.(newTaskTitle); // Wait promise validation
+              handleUpdateTaskTitle?.(newTaskTitle);
               setIsEditingTask(false);
             }
           }}

@@ -19,25 +19,30 @@ export const Home = () => {
   const {
     tasklist,
     loadingRequisition,
-    createNewTask,
-    updateTask,
+    assignTask,
+    updateTaskTitle,
+    updateTaskStatus,
     deleteTask,
   } = useTasks();
   const [isFocused, setIsFocused] = useState(false);
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
 
-  const assignTask = async (event: FormEvent) => {
+  const onAssignTask = async (event: FormEvent) => {
     event.preventDefault();
-    if (!title.trim()) return;
-    await createNewTask({ title });
-    setTitle('');
+    if (!name.trim()) return;
+    await assignTask({ title: name });
+    setName('');
   };
 
-  const onUpdateTask = async (id: string, newTitle: string) => {
-    await updateTask({ id, title: newTitle });
+  const onUpdateTaskTitle = async (id: string, title: string) => {
+    await updateTaskTitle({ id, title });
   };
 
-  const removeTask = async (id: string) => {
+  const onUpdateTaskStatus = async (id: string, isCompleted: boolean) => {
+    await updateTaskStatus({ id, isCompleted });
+  };
+
+  const onRemoveTask = async (id: string) => {
     await deleteTask({ id });
   };
 
@@ -67,27 +72,31 @@ export const Home = () => {
                 <Task
                   key={task.id}
                   taskTitle={task.title}
-                  handleUpdate={(newTaskTitle) =>
-                    onUpdateTask(task.id, newTaskTitle)
+                  taskStatus={task.isCompleted}
+                  handleUpdateTaskTitle={(newTaskTitle) =>
+                    onUpdateTaskTitle(task.id, newTaskTitle)
                   }
-                  handleDelete={() => removeTask(task.id)}
+                  handleUpdateTaskStatus={(newTaskStatus) =>
+                    onUpdateTaskStatus(task.id, newTaskStatus)
+                  }
+                  handleDelete={() => onRemoveTask(task.id)}
                 />
               );
             })}
         </Display>
 
-        <InputField isFocused={isFocused} onSubmit={assignTask}>
+        <InputField isFocused={isFocused} onSubmit={onAssignTask}>
           <input
             type="text"
             placeholder="type a task..."
             maxLength={50}
-            value={title}
+            value={name}
             onFocus={() => setIsFocused(true)}
             onBlur={() => {
-              setTitle((text) => text.trim());
+              setName((text) => text.trim());
               setIsFocused(false);
             }}
-            onChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => setName(event.target.value)}
           />
 
           <button type="submit">
