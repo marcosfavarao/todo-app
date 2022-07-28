@@ -1,14 +1,16 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { IoIosCheckboxOutline, IoMdCreate, IoMdTrash } from 'react-icons/io';
+import { useTasks } from '../../../../hooks';
 
 import { Container } from './task.styles';
 
 interface TaskProps {
   taskTitle: string;
+  handleUpdate?: (newTitle: string) => void;
   handleDelete?: () => void;
 }
 
-export const Task = ({ taskTitle, handleDelete }: TaskProps) => {
+export const Task = ({ taskTitle, handleUpdate, handleDelete }: TaskProps) => {
   const [isTaskDone, setIsTaskDone] = useState(false);
   const [isEditingTask, setIsEditingTask] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState(taskTitle);
@@ -36,7 +38,7 @@ export const Task = ({ taskTitle, handleDelete }: TaskProps) => {
             if (!isEditingTask) {
               setIsEditingTask(true);
             } else {
-              console.log('Call API Method'); // Wait romise validation
+              handleUpdate?.(newTaskTitle); // Wait promise validation
               setIsEditingTask(false);
             }
           }}

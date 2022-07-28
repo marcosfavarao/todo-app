@@ -23,15 +23,21 @@ interface TasklistState {
 interface TasklistContext {
   tasklist: Array<TasklistState>;
   createNewTask: (task: TasklistCreation) => Promise<void>;
+  updateTask: (task: TasklistUpdate) => Promise<void>;
   deleteTask: (task: TasklistDelete) => Promise<void>;
 }
 
 type TasklistCreation = Omit<TasklistState, 'id' | 'createdAt'>;
+type TasklistUpdate = Omit<TasklistState, 'createdAt'>;
 type TasklistDelete = Omit<TasklistState, 'title' | 'createdAt'>;
 
 const DEFAULT_VALUE = {
   tasklist: [],
   createNewTask: () =>
+    new Promise<void>(() => {
+      Promise.resolve();
+    }),
+  updateTask: () =>
     new Promise<void>(() => {
       Promise.resolve();
     }),
@@ -55,6 +61,27 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
     setTasklist((currentTasks) => [...currentTasks, todo]);
   }, []);
 
+  const updateTask = useCallback(async (task: TasklistUpdate) => {
+    await api.patch(`/tasklist/${task.id}`, {
+      ...task,
+      createdAt: new Date().toString(),
+    });
+
+    setTasklist((currentTasks) => {
+      const taskList = currentTasks.map((taskReference) => {
+        if (taskReference.id === task.id) {
+          return {
+            ...taskReference,
+            title: task.title,
+            createdAt: new Date().toString(),
+          };
+        }
+        return taskReference;
+      });
+      return taskList;
+    });
+  }, []);
+
   const deleteTask = useCallback(async (task: TasklistDelete) => {
     await api.delete(`/tasklist/${task.id}`);
     setTasklist((_task) => _task.filter((current) => current.id !== task.id));
@@ -70,9 +97,10 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
     () => ({
       tasklist,
       createNewTask,
+      updateTask,
       deleteTask,
     }),
-    [tasklist, createNewTask, deleteTask],
+    [tasklist, createNewTask, updateTask, deleteTask],
   );
 
   return (

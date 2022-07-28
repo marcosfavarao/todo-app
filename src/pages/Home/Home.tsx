@@ -15,7 +15,7 @@ import {
 } from './home.styles';
 
 export const Home = () => {
-  const { tasklist, createNewTask, deleteTask } = useTasks();
+  const { tasklist, createNewTask, updateTask, deleteTask } = useTasks();
   const [isFocused, setIsFocused] = useState(false);
   const [title, setTitle] = useState('');
 
@@ -24,6 +24,10 @@ export const Home = () => {
     if (!title.trim()) return;
     await createNewTask({ title });
     setTitle('');
+  };
+
+  const onUpdateTask = async (id: string, newTitle: string) => {
+    await updateTask({ id, title: newTitle });
   };
 
   const removeTask = async (id: string) => {
@@ -53,6 +57,9 @@ export const Home = () => {
                 <Task
                   key={task.id}
                   taskTitle={task.title}
+                  handleUpdate={(newTaskTitle) =>
+                    onUpdateTask(task.id, newTaskTitle)
+                  }
                   handleDelete={() => removeTask(task.id)}
                 />
               );

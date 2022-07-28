@@ -35,6 +35,7 @@ export const Header = styled.header`
 
 export const Display = styled.div<DisplayProps>`
   background: ${({ theme }) => lighten(0.05, theme.colors.background)};
+
   width: 100%;
   height: 40rem;
   margin-top: 2rem;
@@ -44,15 +45,18 @@ export const Display = styled.div<DisplayProps>`
   border-radius: 0.25rem;
   overflow: hidden;
   overflow-y: auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: ${({ hasTasks }) => (hasTasks ? `flex-start` : `center`)};
-  flex-direction: column;
+  position: relative;
 `;
 
 export const Empty = styled.div`
   width: 100%;
+  margin: 0 auto;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(0, 50%);
+
   display: flex;
   align-items: center;
   justify-content: center;
