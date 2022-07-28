@@ -20,10 +20,10 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  /* flex-wrap: wrap; */
 
   overflow: hidden;
   transition: all ${({ theme }) => theme.transitions.fast};
+
   &:hover {
     background: ${({ theme }) => transparentize(0.9, theme.colors.green)};
     border: 1px solid ${({ theme }) => transparentize(0.8, theme.colors.green)};
@@ -97,6 +97,9 @@ export const Container = styled.div<ContainerProps>`
       &:nth-child(2) {
         color: ${({ isEditingTask, theme }) =>
           isEditingTask && theme.colors.orange};
+        opacity: ${({ isCompleted }) => (isCompleted ? 0.25 : 1)};
+        pointer-events: ${({ isCompleted }) => (isCompleted ? 'none' : 'all')};
+
         &:hover {
           color: ${({ theme }) => lighten(0.08, theme.colors.orange)};
         }
@@ -104,6 +107,7 @@ export const Container = styled.div<ContainerProps>`
 
       &:last-child {
         color: ${({ theme }) => theme.colors.red};
+
         &:hover {
           color: ${({ theme }) => lighten(0.08, theme.colors.red)};
         }

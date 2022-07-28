@@ -49,9 +49,13 @@ export const Task = ({
         />
         <IoMdCreate
           onClick={() => {
-            if (!isEditingTask) {
-              setIsEditingTask(true);
-            } else {
+            if (!isEditingTask) setIsEditingTask(true);
+
+            if (isEditingTask && taskTitle === newTaskTitle) {
+              setIsEditingTask(false);
+            }
+
+            if (isEditingTask && taskTitle !== newTaskTitle) {
               handleUpdateTaskTitle?.(newTaskTitle);
               setIsEditingTask(false);
             }
