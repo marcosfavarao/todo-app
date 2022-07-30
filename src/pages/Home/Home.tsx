@@ -1,5 +1,7 @@
 import { FormEvent, useState } from 'react';
+import { FaGithub } from 'react-icons/fa';
 import { VscChecklist } from 'react-icons/vsc';
+import { AiOutlineGlobal } from 'react-icons/ai';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 import { useTasks } from '../../hooks';
@@ -13,6 +15,7 @@ import {
   Loader,
   Empty,
   InputField,
+  Network,
 } from './home.styles';
 
 export const Home = () => {
@@ -49,6 +52,23 @@ export const Home = () => {
   return (
     <Container>
       <Content>
+        <Network>
+          <a
+            href="https://www.marcosfavarao.dev/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <AiOutlineGlobal />
+          </a>
+          <a
+            href="https://github.com/marcosfavarao/todo-app.git"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaGithub />
+          </a>
+        </Network>
+
         <Header>
           <h1>My To-do&apos;s</h1>
         </Header>

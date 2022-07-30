@@ -29,6 +29,7 @@ export const Content = styled.section`
   margin: 0 auto;
   margin-top: 4rem;
   padding: 1rem;
+  position: relative;
 `;
 
 export const Header = styled.header`
@@ -170,6 +171,36 @@ export const InputField = styled.form<InputFieldProps>`
       font-size: 1rem;
       font-style: italic;
       font-weight: ${({ theme }) => theme.fonts.weight.light};
+    }
+  }
+`;
+
+export const Network = styled.div`
+  /* background-color: red; */
+  width: 6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 1rem;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  a {
+    display: flex;
+
+    svg {
+      color: ${({ theme }) => transparentize(0.8, theme.colors.text)};
+      width: 1.5rem;
+      height: 1.5rem;
+      transition: all ${({ theme }) => theme.transitions.fast};
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.green};
+      }
     }
   }
 `;

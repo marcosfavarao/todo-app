@@ -34,9 +34,9 @@ export const Task = ({
   // States
   const { colors } = useContext(ThemeContext);
   const [isEditingTaskTitle, setIsEditingTaskTitle] = useState(false);
-  const [isTaskDone, setIsTaskDone] = useState(taskStatus);
-  const [newTaskTitle, setNewTaskTitle] = useState(taskTitle);
   const [isPriorityMenuOpen, setIsPriorityMenuOpen] = useState(false);
+  const [newTaskTitle, setNewTaskTitle] = useState(taskTitle);
+  const [isTaskDone, setIsTaskDone] = useState(taskStatus);
   const [labelColor, setLabelColor] = useState('');
 
   // Callback methods
@@ -86,8 +86,6 @@ export const Task = ({
   useEffect(() => {
     document.addEventListener('keydown', detectKeyDown, true);
   }, [detectKeyDown]);
-
-  useEffect(() => setIsEditingTaskTitle(false), []);
 
   useEffect(
     () =>
