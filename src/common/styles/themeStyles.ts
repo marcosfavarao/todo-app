@@ -40,6 +40,7 @@ export const darkTheme = {
     green: '#169a67',
     red: '#9a1616',
     orange: '#e37d10',
+    blue: '#108be3',
   },
 
   fonts: {

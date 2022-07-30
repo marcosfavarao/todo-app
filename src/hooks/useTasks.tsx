@@ -66,22 +66,18 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
   const [loadingRequisition, setLoadingRequisition] = useState(false);
 
   const assignTask = useCallback(async (task: TasklistCreation) => {
-    setLoadingRequisition(true);
+    // setLoadingRequisition(true);
     const response = await api.post('/tasklist', {
       ...task,
       createdAt: new Date().toString(),
     });
-    const todo = response.data.tasklist;
+
+    const todo = response.data?.tasklist;
+
     setTasklist((currentTasks) => [...currentTasks, todo]);
   }, []);
 
   const updateTaskTitle = useCallback(async (task: TasklistTitleUpdate) => {
-    setLoadingRequisition(true);
-    await api.patch(`/tasklist/title/${task.id}`, {
-      ...task,
-      createdAt: new Date().toString(),
-    });
-
     setTasklist((currentTasks) => {
       const taskList = currentTasks.map((taskReference) => {
         if (taskReference.id === task.id) {
@@ -91,19 +87,20 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
             createdAt: new Date().toString(),
           };
         }
+
         return taskReference;
       });
+
       return taskList;
+    });
+
+    await api.patch(`/tasklist/title/${task.id}`, {
+      ...task,
+      createdAt: new Date().toString(),
     });
   }, []);
 
   const updateTaskStatus = useCallback(async (task: TasklistStatusUpdate) => {
-    // setLoadingRequisition(true);
-    await api.patch(`/tasklist/status/${task.id}`, {
-      ...task,
-      createdAt: new Date().toString(),
-    });
-
     setTasklist((currentTasks) => {
       const taskList = currentTasks.map((taskReference) => {
         if (taskReference.id === task.id) {
@@ -113,21 +110,26 @@ export const TasklistProvider = ({ children }: TasklistProviderProps) => {
             createdAt: new Date().toString(),
           };
         }
+
         return taskReference;
       });
+
       return taskList;
+    });
+
+    await api.patch(`/tasklist/status/${task.id}`, {
+      ...task,
+      createdAt: new Date().toString(),
     });
   }, []);
 
   const deleteTask = useCallback(async (task: TasklistDelete) => {
-    setLoadingRequisition(true);
-    await api.delete(`/tasklist/${task.id}`);
+    // setLoadingRequisition(true);
     setTasklist((_task) => _task.filter((current) => current.id !== task.id));
+    await api.delete(`/tasklist/${task.id}`);
   }, []);
 
   useEffect(() => setLoadingRequisition(false), [tasklist]);
-
-  // useEffect(() => console.log(tasklist), [tasklist]); // ! Delete
 
   useEffect(() => {
     api

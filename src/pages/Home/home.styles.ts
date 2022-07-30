@@ -128,6 +128,7 @@ export const InputField = styled.form<InputFieldProps>`
     border: 0;
     margin-right: 1rem;
     cursor: pointer;
+    overflow: hidden;
 
     display: flex;
     align-items: center;
@@ -159,7 +160,6 @@ export const InputField = styled.form<InputFieldProps>`
 
     font-size: 1.1rem;
     font-weight: ${({ theme }) => theme.fonts.weight.normal};
-    /* text-transform: capitalize; */
 
     &:focus {
       outline: none;

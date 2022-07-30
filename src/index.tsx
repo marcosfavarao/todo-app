@@ -15,19 +15,7 @@ createServer({
       tasklists: [
         {
           id: 1,
-          title: 'Learn Javascript',
-          isCompleted: false,
-          createdAt: new Date(),
-        },
-        {
-          id: 2,
-          title: 'Learn Typescript',
-          isCompleted: false,
-          createdAt: new Date(),
-        },
-        {
-          id: 3,
-          title: 'Learn NodeJS',
+          title: 'React is cool',
           isCompleted: false,
           createdAt: new Date(),
         },

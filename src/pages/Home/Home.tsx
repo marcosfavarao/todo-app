@@ -25,13 +25,13 @@ export const Home = () => {
     deleteTask,
   } = useTasks();
   const [isFocused, setIsFocused] = useState(false);
-  const [name, setName] = useState('');
+  const [taskTitle, setTaskTitle] = useState('');
 
   const onAssignTask = async (event: FormEvent) => {
     event.preventDefault();
-    if (!name.trim()) return;
-    await assignTask({ title: name });
-    setName('');
+    if (!taskTitle.trim()) return;
+    await assignTask({ title: taskTitle });
+    setTaskTitle('');
   };
 
   const onUpdateTaskTitle = async (id: string, title: string) => {
@@ -42,7 +42,7 @@ export const Home = () => {
     await updateTaskStatus({ id, isCompleted });
   };
 
-  const onRemoveTask = async (id: string) => {
+  const onDeleteTask = async (id: string) => {
     await deleteTask({ id });
   };
 
@@ -50,7 +50,7 @@ export const Home = () => {
     <Container>
       <Content>
         <Header>
-          <h1>My Todos</h1>
+          <h1>My To-do&apos;s</h1>
         </Header>
 
         <Display hasTasks={tasklist.length !== 0 && tasklist !== null}>
@@ -79,7 +79,7 @@ export const Home = () => {
                   handleUpdateTaskStatus={(newTaskStatus) =>
                     onUpdateTaskStatus(task.id, newTaskStatus)
                   }
-                  handleDelete={() => onRemoveTask(task.id)}
+                  handleDeleteTask={() => onDeleteTask(task.id)}
                 />
               );
             })}
@@ -90,13 +90,13 @@ export const Home = () => {
             type="text"
             placeholder="type a task..."
             maxLength={50}
-            value={name}
+            value={taskTitle}
             onFocus={() => setIsFocused(true)}
             onBlur={() => {
-              setName((text) => text.trim());
+              setTaskTitle((text) => text.trim());
               setIsFocused(false);
             }}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => setTaskTitle(event.target.value)}
           />
 
           <button type="submit">
