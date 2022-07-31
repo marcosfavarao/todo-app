@@ -1,184 +1,62 @@
-<h1 align="center">
-  <img alt="Reactjs Banner" src="https://ik.imagekit.io/marcosfavarao/dashboard/reactjs-animation_w4o38JS8Z.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1658447044847" width="100%">
-</h1>
+<header align="center">
+  <h1>To-do App</h1>
+</header>
 
-<div align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/marcosfavarao/reactjs-template">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/marcosfavarao/reactjs-template">
-  <a href="https://github.com/marcosfavarao/reactjs-template/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/marcosfavarao/reactjs-template">
-  </a>
-  <a href="https://github.com/marcosfavarao/reactjs-template/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/marcosfavarao/reactjs-template.svg">
-  </a>
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen" />
-  <a href="https://github.com/marcosfavarao/reactjs-template/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/marcosfavarao/reactjs-template?style=social">
-  </a>
-</div>
+<main>
+<section>
+<h2>📌 Intro</h2>
+<p>SPA de uma to-do list. Além de poder criar uma nova task, também é possível editar a mesma e setar a prioridade relativa. Tasks são salvas em um mock de um BD(MirageJS) representativo. Para editar, basta clicar no icone correspondente ou double-click em cima da task. Teclas 'ESC' e 'ENTER' também cancelam/salvam progresso de edição.</p>
+</section>
 
-<br />
+<br>
 
-# React with Typescript template
+<section>
+<h2>🔗 Conteúdos Externos</h2>
+<p>Links externos para arquivos do projeto</p>
 
-O repositório é um template clonável, customizado e próprio, pronto para ser utilizado. Elaborado com o intuito de desenvolvimento de projetos utilizando ReactJS puro, removendo a necessidade de configurar e instalar pacotes padrões tais como:
+- [ <img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/figma-256-minimalist_ybxInK_n4.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123409' alt="figma" width="32"> ](https://www.figma.com/file/poJ4CHe1veB12KWvOPvFx0/to-do-app)
 
-- Linters(ESLint, Prettier...)
-- Serviços de requisição(Axios)
-- Icones SVG's
+<br>
 
-Conta com ferramentas úteis pré-desenvolvidas(Currency Formatter) e tema da aplicação configurado, em que neste último, basta apenas adicionar as cores que a mesma possa conter.
+<section>
+<h2>💡 Tecnologias</h2>
+<p>O projeto foi desenvolvido com as seguintes tecnologias</p>
+<img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/reactjs-256-minimalist_Uk7GF2fSb.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123475' alt="reactjs" width="64">
+<img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/typescript-256-minimalist_qOZA91yRiX.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123241' alt="typescript" width="64">
+<img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/miragejs-256-minimalist_BF4EZjM5G.png?ik-sdk-version=javascript-1.4.3&updatedAt=1659227363541' alt="miragejs" width="64">
+<img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/styledcomponents-256-minimalist_qQ-Mt_IJEb.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123335' alt="styled-components" width="64">
+<img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/polished-256-minimalist_fjFp6ixha.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123195' alt="polished" width="64">
+<img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/reacticons-256-minimalist_dlZc4Fvf8x.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123465' alt="react-icons" width="64">
+<img src='https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/figma-256-minimalist_ybxInK_n4.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123409' alt="figma" width="64">
+</section>
 
-<br />
+<br>
 
-# Estrutura de Pastas
+<section>
+<h2>⚙ Rodando a Aplicação</h2>
+<p>O download do repositório pode ser feito via GitHub. Será necessário instalar as dependências antes de executá-lo.</p>
 
-**Estrutura hierárquica**
-
-```
-src
-|-- common
-  |-- assets
-    |-- images
-    |-- svgs
-  |-- styles
-  |-- utils
-|-- components
-|-- hooks
-|-- pages
-|-- routes
-|-- services
-|-- App.tsx
-|-- index.tsx
+```bash
+# Clone o repositório para seu computador
+$ https://github.com/marcosfavarao/todo-app.git
 ```
 
-**Estrutura de componentes:**
-
-```
-components
-|-- YourComponent
-  |-- YourComponent.tsx
-  |-- yourcomponent.styles.ts
-  |-- index.ts
-```
-
-**Estrutura das páginas:**
-
-```
-pages
-|-- YourPage
-  |-- Components
-  |-- YourPage.tsx
-  |-- yourpage.styles.ts
-  |-- index.ts
-```
-
-<br />
-
-# Composição das Pastas
-
-<p>Todos os assets e ferramentas uteis que o projeto utiliza, sejam imagens, estilos gobais, fontes, tema, etc...</p>
-
-```
-./common
-```
-
-<br />
-
-<p>Todos os componentes reutilizáveis pela aplicação toda.</p>
-
-```
-./components
-```
-
-<br />
-
-<p>Hooks criados compartilhados para facilitar na construção e elaboração dos componentes pelo ciclo de vida deles.</p>
-
-```
-./hooks
-```
-
-<br />
-
-<p>Páginas containers de cada parte do projeto. São mapeadas e renderizadas mediante as rotas de acesso.</p>
-
-```
-./pages
-```
-
-<br />
-
-<p>Rotas de acesso. Responsáveis por mapear as páginas e renderizar na DOM.</p>
-
-```
-./routes
-```
-
-<br />
-
-<p>Serviços de provedor de dados API para aplicação. Contém todos os arquivos e instalação necessárias(axios) para consumação de API's REST.</p>
-
-```
-./services
-```
-
-<br />
-
-# Como Executar
-
-### Yarn Package Manager
-
-```
+```bash
+# Abra o projeto e instale as dependências necessárias
 $ yarn install
+```
 
+```bash
+# Após instalar as dependências, execute o servidor local
 $ yarn start
 ```
 
-<br />
+Você será automaticamente redirecionado para seu browser onde a aplicação estará rodando na `porta 3000`.
 
-### NPM Package Manager
+</section>
 
-```
-$ npm install
+<br>
 
-$ npm start
-```
+---
 
-<br />
-
-# Pacotes Instalados
-
-O projeto está configurado com os seguintes pacotes:
-
-<a href="https://reactjs.org/" target="_blank"><img alt="Reactjs" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/reactjs-256-minimalist_Uk7GF2fSb.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123475" style="width: 64px" > </a>
-<a href="https://www.typescriptlang.org/" target="_blank"> <img alt="Typescript" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/typescript-256-minimalist_qOZA91yRiX.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123241" style="width: 64px" > </a>
-<a href="https://styled-components.com/" target="_blank"> <img alt="Styled-Components" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/styledcomponents-256-minimalist_qQ-Mt_IJEb.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123335" style="width: 64px" > </a>
-<a href="https://polished.js.org/" target="_blank"> <img alt="Polished" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/polished-256-minimalist_fjFp6ixha.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123195" style="width: 64px" > </a>
-<a href="https://react-icons.github.io/react-icons/" target="_blank"> <img alt="React Icons" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/reacticons-256-minimalist_dlZc4Fvf8x.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123465" style="width: 64px" > </a>
-<a href="https://reactrouter.com/docs/en/v6/getting-started/overview" target="_blank"> <img alt="React Router DOM" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/reactrouterdom-256-minimalist_fjL9REaXT.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123444" style="width: 64px" > </a>
-<a href="https://axios-http.com/" target="_blank"> <img alt="Axios" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/axios-256-minimalist_iaXKq9IlB.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447122657" style="width: 64px" > </a>
-<a href="https://eslint.org/" target="_blank"> <img alt="ESLint" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/eslint-256-minimalist_o1mg_Jbdmu.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123252" style="width: 64px" > </a>
-<a href="https://prettier.io/" target="_blank"> <img alt="Prettier" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/prettier-256-minimalist_DoYe3F80U.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123396" style="width: 64px" > </a>
-<a href="https://editorconfig.org/" target="_blank"> <img alt="Editor Config" src="https://ik.imagekit.io/marcosfavarao/dashboard/development-icons/minimalists/editorconfig-256-minimalist_C9gPtPrCC.png?ik-sdk-version=javascript-1.4.3&updatedAt=1658447123445" style="width: 64px" > </a>
-
-<br />
-
-## Dependências Principais
-
-- Axios
-- Polished
-- React
-- React Icons
-- React Router DOM
-- Styled-Components
-- Typescript
-
-<br />
-
-## Dependências Secundarias
-
-- ESLint
-- Prettier
-- Editor Config
-- Web Vitals
+Made by <strong>Marcos A. L. Favarão</strong>. ✌ [Get in touch!](https://www.marcosfavarao.dev/)
