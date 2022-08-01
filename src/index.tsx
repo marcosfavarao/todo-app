@@ -63,6 +63,7 @@ createServer({
     this.patch(
       '/tasklist/status/:id',
       (schema, request) => {
+        // Teste
         const { id } = request.params;
         const data = JSON.parse(request.requestBody);
 
