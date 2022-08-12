@@ -1,5 +1,6 @@
 <header align="center">
   <h1>To-do App</h1>
+  <img alt="todo-app" src="https://ik.imagekit.io/marcosfavarao/dashboard/todo-app/todo-app-gif_YrTmqFT8r.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1660330029212" width="80%">
 </header>
 
 <main>
