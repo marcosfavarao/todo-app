@@ -1,9 +1,12 @@
 <header align="center">
   <h1>To-do App</h1>
   <img alt="todo-app" src="https://ik.imagekit.io/marcosfavarao/dashboard/todo-app/todo-app-gif_YrTmqFT8r.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1660330029212" width="100%">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/marcosfavarao/todo-app">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen" />
-  <img alt="Made by Marcos Favarão" src="https://img.shields.io/badge/made%20by-Marcos%20Favar%C3%A3o-%2304D361">
+
+  <div align="center">
+    <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/marcosfavarao/todo-app">
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen" />
+    <img alt="Made by Marcos Favarão" src="https://img.shields.io/badge/made%20by-Marcos%20Favar%C3%A3o-%2304D361">
+  </div>
 </header>
 
 <main>
